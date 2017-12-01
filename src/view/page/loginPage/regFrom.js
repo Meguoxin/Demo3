@@ -19,19 +19,50 @@ export default class regFrom extends Component {
         super(props)
         this.state = {
             tabState: 0,
+            time:60,
             tabColor:true,
             ziColor:true,
             username: "",
             userpwd:"",
             bgColor:{backgroundColor:"#CCCCCC"},
             secends: 60,
+            verification:true,
+            verificationcolor:{backgroundColor:"#FFAA00"},
         };
         this.handleLogin = this.handleLogin.bind(this);
     }
+    actiontime(){
+        if(this.state.verification){
+            // 开启计时器
+            this.startInterval();
+        }
+    }
+    startInterval(){
+        // 变文字, 变颜色
+        this.setState({verification: false, tabColor: true})
+        this.timer && clearInterval(this.timer)
+        let {time} = this.state;
+        this.timer = setInterval(()=>{
+            this.setState({time: --time})
+            if(!time){
+                clearInterval(this.timer);
+                this.setState({verification: true, time: 60, tabColor: false});
+            }
+        }, 1000)
+    }
+    UpColorverification(){
+        if(!this.state.verification){
+            // 禁用状态
+            this.computedTabColor(true)
+        }else {
+            this.computedTabColor(false)
+        }
+    }
+    componentWillUnmount(){
+        this.timer && clearInterval(this.timer)
+    }
     computedTabColor(boo){
         this.setState({tabColor: boo});
-        if(boo===false||this.state.userpwd.length>0){
-        }
     }
     computedcolor(){
         if(this.state.username.length>0&&this.state.userpwd.length>0){
@@ -63,7 +94,9 @@ export default class regFrom extends Component {
     }
     render() {
         const { login,status} = this.props;
+        const { time,verification,tabColor } = this.state;
         var text = this.state.tabColor ?{color:'#CCCCCC'} : {color:'#FF7400'};
+        var text1 = verification ?"获取验证码": `重新发送(${time})`;
         return(
             <View style={loginStyle.loginMain}>
                 <View style={loginStyle.formStyle}>
@@ -92,11 +125,13 @@ export default class regFrom extends Component {
                                 onChangeText={(text) => {
                                     this.setState({userpwd: text});
                                 }}
-                                onFocus={()=>{this.computedTabColor(false)}}
+                                onFocus={()=>{this.UpColorverification()}}
                                 onBlur={()=>{this.computedTabColor(true)}}
                             />
                             <TouchableOpacity style={loginStyle.verification}>
-                            <Text style={text}>获取验证码</Text>
+                                <Text style={text} onPress={()=>{
+                                    this.actiontime()
+                                }}>{text1}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

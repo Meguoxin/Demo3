@@ -19,6 +19,7 @@ const App = StackNavigator({
     },
     Main: {
       screen: MainPage
+
     },
 });
 

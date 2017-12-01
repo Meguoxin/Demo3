@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     },
     verification:{
         right: 0,
-        fontSize:13,
         top: 20,
         position: 'absolute',
     },
@@ -72,7 +71,6 @@ const styles = StyleSheet.create({
         width:295,
         alignSelf: 'center',
         paddingLeft: -10,
-        fontSize: 15,
         borderBottomColor:'#CCCCCC',
         borderBottomWidth:0.4,
     },

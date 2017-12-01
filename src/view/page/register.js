@@ -66,24 +66,15 @@ class Main extends Component {
             return {color:"#666666"}
         }
     }
-    handleLogin(){
-        // Keyboard.dismiss();
-        if(!this.state.username||!this.state.userpwd){
-            Alert.alert(
-                '提示',
-                '用户名或验证码不能为空！',
-                [{
-                    text: '好的'
-                }]
-            );
-            return;
+    actiontime(){
+        if(this.state.verification){
+            // 开启计时器
+            this.startInterval();
         }
-        this.props.login()
     }
     /*     onChangeverification() {
      this.setState({verification: !this.state.verification})
      } */
-    /* ---------------------------------- */
     startInterval(){
         // 变文字, 变颜色
         this.setState({verification: false, tabColor: true})
@@ -97,19 +88,18 @@ class Main extends Component {
             }
         }, 1000)
     }
-    /* ---------------------------------- */
     componentWillUnmount(){
         this.timer && clearInterval(this.timer)
     }
-    //ComponentUpdate生命周期方法
-    shouldComponentUpdate(nextProps, nextState) {
-        // 登录完成,切成功登录
-        if (nextProps.status === '成功' && nextProps.isSuccess) {
-            this.props.navigation.dispatch(resetAction)
-            return false;
+    UpColorverification(){
+        if(!this.state.verification){
+            // 禁用状态
+            this.computedTabColor(true)
+        }else {
+            this.computedTabColor(false)
         }
-        return true;
     }
+    //ComponentUpdate生命周期方法
     logout() {
         if(!this.state.username||!this.state.userpwd){
             Alert.alert(
@@ -126,12 +116,9 @@ class Main extends Component {
     }
     render(){
         const { login,status} = this.props;
-        /* ---------------------------------- */
         const { time,verification,tabColor } = this.state;
         var text = tabColor ?{color:'#CCCCCC'} : {color:'#FF7400'};
         var text1 = verification ?"获取验证码": `重新发送(${time})`;
-        /* ---------------------------------- */
-
         return (
             <View style={[common.wrapper, loginStyle.loginWrap]}>
                 <View style={loginStyle.loginMain1}>
@@ -161,28 +148,16 @@ class Main extends Component {
                                     onChangeText={(text) => {
                                         this.setState({userpwd: text});
                                     }}
-                                    /* ------------------------*/
                                     onFocus={()=>{
-                                        if(!verification){
-                                            // 禁用状态
-                                            this.computedTabColor(true)
-                                        }else {
-                                            this.computedTabColor(false)
-                                        }
+                                     this.UpColorverification()
                                     }}
-                                    /* ------------------------*/
                                     onBlur={()=>{
                                         this.computedTabColor(true)
                                     }}
                                 />
                                 <TouchableOpacity style={loginStyle.verification}>
                                     <Text style={text} onPress={()=>{
-                                        /* ---------------------------------- */
-                                        if(verification){
-                                            // 开启计时器
-                                            this.startInterval();
-                                        }
-                                        /* ---------------------------------- */
+                                                this.actiontime()
                                     }}>{text1}</Text>
                                 </TouchableOpacity>
                             </View>
@@ -190,7 +165,8 @@ class Main extends Component {
                     </View>
                     <View style={loginStyle.btn}>
                         <TouchableHighlight style={[loginStyle.btnWrap,this.computedcolor()]}  underlayColor='#FFAA00'
-                                            onPress={this.logout.bind(this)}>
+                                             onPress={this.logout.bind(this)}
+                        >
                             <Text style={[loginStyle.loginBtn1,this.computezidcolor()]}>{status}</Text>
                         </TouchableHighlight>
                     </View>

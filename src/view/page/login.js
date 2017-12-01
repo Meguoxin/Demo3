@@ -35,10 +35,9 @@ class loginPage extends Component {
                 <Text style={{color:'black',marginRight:10,fontSize:16}}>注册</Text>
             </TouchableOpacity>,
         headerLeft:
-            <Button
-                title = '返回'
-                // backgroundColor: 'black'
-            />,
+            <TouchableOpacity style={{flexDirection:'row'}}>
+                <Text style={{color:'black',marginLeft:10,fontSize:16}}>返回</Text>
+            </TouchableOpacity>,
         alignSelf:'center'
     });
     computedTabBar(type){
@@ -74,9 +73,7 @@ class loginPage extends Component {
             <View style={[common.wrapper, loginStyle.loginWrap]}>
                  <View style={loginStyle.navigation}>
                  <TouchableOpacity style={[loginStyle.btnWrap1,{borderBottomColor: this.computedTabBar('login'),
-                     borderBottomWidth: 3, paddingVertical: 5,
-                     fontSize: 16,
-                     color: '#666666'}]}
+                     borderBottomWidth: 3, paddingVertical: 5}]}
                 onPress={()=>{this.onChangeTab('login')}}
                  >
                  <Text style={{
@@ -84,12 +81,9 @@ class loginPage extends Component {
                      height:20,
                      color: '#666666'}}>账号登录</Text>
                 </TouchableOpacity>
-                 <TouchableOpacity style={[loginStyle.btnWrap1,{borderBottomColor: this.computedTabBar('reg'),
-                     borderBottomWidth: 3, paddingVertical: 5,
-                     fontSize: 16,
-                     color: '#666666'}]}
-                 onPress={()=>{this.onChangeTab('reg')}}
-                 delayPressOut={100}
+                     <TouchableOpacity style={[loginStyle.btnWrap1,{borderBottomColor: this.computedTabBar('reg'),
+                         borderBottomWidth: 3, paddingVertical: 5}]}
+                                       onPress={()=>{this.onChangeTab('reg')}}
                      >
                      <Text style={{
                          fontSize: 16,
@@ -111,6 +105,7 @@ class loginPage extends Component {
         );
     }
 }
+//ssss
 export default connect ((state) => {
         return {
             //key为组建的props属性 Value为组建的State
