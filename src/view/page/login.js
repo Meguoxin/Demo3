@@ -40,12 +40,12 @@ class loginPage extends Component {
             </TouchableOpacity>,
         alignSelf:'center'
     });
-    computedTabBar(type){
-        return this.state.tabState === type ? "rgb(255, 152, 0)" : "transparent"
-    }
-    shouldComponentUpdate(nextProps, nextState) {
-        // 登录完成,切成功登录
-        if (nextProps.status === '成功' && nextProps.isSuccess) {
+            computedTabBar(type){
+            return this.state.tabState === type ? "rgb(255, 152, 0)" : "transparent"
+        }
+        shouldComponentUpdate(nextProps, nextState) {
+            // 登录完成,切成功登录
+            if (nextProps.status === '成功' && nextProps.isSuccess) {
             this.props.navigation.dispatch(resetAction)
             return false;
         }

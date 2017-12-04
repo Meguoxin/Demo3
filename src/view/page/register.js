@@ -166,6 +166,7 @@ class Main extends Component {
                     <View style={loginStyle.btn}>
                         <TouchableHighlight style={[loginStyle.btnWrap,this.computedcolor()]}  underlayColor='#FFAA00'
                                              onPress={this.logout.bind(this)}
+
                         >
                             <Text style={[loginStyle.loginBtn1,this.computezidcolor()]}>{status}</Text>
                         </TouchableHighlight>

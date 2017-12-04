@@ -50,6 +50,9 @@ export default class regFrom extends Component {
             }
         }, 1000)
     }
+    componentWillUnmount(){
+        this.timer && clearInterval(this.timer)
+    }
     UpColorverification(){
         if(!this.state.verification){
             // 禁用状态
@@ -57,9 +60,6 @@ export default class regFrom extends Component {
         }else {
             this.computedTabColor(false)
         }
-    }
-    componentWillUnmount(){
-        this.timer && clearInterval(this.timer)
     }
     computedTabColor(boo){
         this.setState({tabColor: boo});
