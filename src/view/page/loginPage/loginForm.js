@@ -12,9 +12,16 @@ import {
     Image,StyleSheet,Button
 } from 'react-native';
 import loginStyle from '../../style/login';
+import { NavigationActions } from 'react-navigation';
 // import {login} from '../../../redux/actions/user';
+import orgetpw from '../loginPage/forgetpw';
 
-
+const resetAction = NavigationActions.reset({
+    index: 0,
+    actions: [
+        NavigationActions.navigate({ routeName: 'Login'})
+    ],
+})
 export default class LoginForm extends Component {
     constructor(props) {
         super(props);
@@ -49,7 +56,6 @@ export default class LoginForm extends Component {
             return {color:"#666666"}
         }
     }
-
     handleLogin(){
         // Keyboard.dismiss();
         if(!this.state.username||!this.state.userpwd){
@@ -118,7 +124,11 @@ export default class LoginForm extends Component {
                     </TouchableHighlight>
                 </View>
                 <View style={loginStyle.btn}>
-                    <TouchableOpacity style={loginStyle.btnWrap2}>
+                    <TouchableOpacity style={loginStyle.btnWrap2}
+                        onPress={()=>
+                            this.props.navigation.navigate("Main")
+                        }
+                    >
                         <Text style={loginStyle.loginforget} >忘了密码？</Text>
                     </TouchableOpacity>
                 </View>

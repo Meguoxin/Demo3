@@ -18,11 +18,12 @@ import LoginForm from './loginPage/loginForm';
 import RegFrom from './loginPage/regFrom';
 import { NavigationActions } from 'react-navigation';
 
-const resetAction = NavigationActions.reset({
+
+const forgetAction = NavigationActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({ routeName: 'Main'})
-    ]
+        NavigationActions.navigate({ routeName: 'Forgetpw'})
+    ],
 })
 
 class loginPage extends Component {
@@ -95,7 +96,7 @@ class loginPage extends Component {
                     (()=>{
                         switch(this.state.tabState){
                             case 'login':
-                                return (<LoginForm login = {login} status = {status}/>)
+                                return (<LoginForm login = {login} status = {status} navigation={this.props.navigation}/>)
                             case 'reg':
                                 return (<RegFrom  login = {login} status = {status}/>)
                         }
@@ -105,7 +106,7 @@ class loginPage extends Component {
         );
     }
 }
-//ssss
+//
 export default connect ((state) => {
         return {
             //key为组建的props属性 Value为组建的State

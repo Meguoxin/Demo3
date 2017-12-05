@@ -65,14 +65,14 @@ export default class regFrom extends Component {
         this.setState({tabColor: boo});
     }
     computedcolor(){
-        if(this.state.username.length>0&&this.state.userpwd.length>0){
+        if(this.state.username.length&&this.state.userpwd.length){
             return {backgroundColor:"#FFAA00"}
         }else{
             return {backgroundColor:"#CCCCCC"}
         }
     }
     computezidcolor(){
-        if(this.state.username.length>0&&this.state.userpwd.length>0){
+        if(this.state.username.length&&this.state.userpwd.length){
             return {color:"#FFFFFF"}
         }else{
             return {color:"#666666"}

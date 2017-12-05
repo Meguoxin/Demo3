@@ -12,15 +12,15 @@ import {
     Modal,Button
 } from 'react-native';
 import { connect } from 'react-redux';
-import *as loginAction from '../../redux/actions/user';
+import *as loginAction from '../../../redux/actions/user';
 import { NavigationActions } from 'react-navigation';
-import loginStyle from '../style/login';
-import common from '../style/common';
+import loginStyle from '../../style/login';
+import common from '../../style/common';
 
 const resetAction = NavigationActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({ routeName: 'Login'})
+        NavigationActions.navigate({ routeName: 'Forgetpw'})
     ],
 })
 

@@ -11,15 +11,18 @@ import * as counterActions from './redux/actions/user';
 import { addNavigationHelpers, StackNavigator,NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import  LoginPage  from './view/page/login';
-import MainPage from './view/page/register'
+import MainPage from './view/page/register/register'
+import ForgetPage from './view/page/loginPage/forgetpw';
 
 const App = StackNavigator({
     Login: {
       screen: LoginPage
     },
     Main: {
-      screen: MainPage
-
+        screen: MainPage
+    },
+    Forgetpw: {
+        screen: ForgetPage
     },
 });
 
