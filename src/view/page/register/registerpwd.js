@@ -37,7 +37,13 @@ class registerpwd extends Component {
             username: "",
             userpwd:"",
             bgColor:{backgroundColor:"#CCCCCC"},
+            syspwd:true
         };
+        this.logout = this.logout.bind(this);
+        this.computedcolor = this.computedcolor.bind(this);
+        this.computedTabColor = this.computedTabColor.bind(this);
+        this.computedzidcolor = this.computedzidcolor.bind(this);
+        this.UpColorverification = this.UpColorverification.bind(this);
     }
 
     computedTabColor(boo){
@@ -75,27 +81,23 @@ class registerpwd extends Component {
     }
     logout() {
         if((this.state.username===this.state.userpwd)&&(this.state.username&&this.state.userpwd)&&(this.state.username.length>6&&this.state.userpwd.length>6)){
-            return ()=> this.props.navigation.navigate("Login")
+            this.setState({syspwd: true})
+            return this.props.navigation.navigate("Login")
         }
         else{
-            Alert.alert(
-                '提示',
-                '手机号书写错误',
-                [{
-                    text: '好的'
-                }]
-            );
+            this.setState({syspwd: false})
             return;
         }
     }
     render(){
         const { login,status} = this.props;
-        const { time,verification,tabColor } = this.state;
+        const { time,verification,tabColor,syspwd} = this.state;
         var text = tabColor ?{color:'#CCCCCC'} : {color:'#FF7400'};
         var text1 = verification ?"获取验证码": `重新发送(${time})`;
+        var text2 = syspwd ?"": "两次密码输入不一致";
         return(
             <View style={[common.wrapper, loginStyle.loginWrap]}>
-                <View style={loginStyle.loginMain1}>
+                <View style={loginStyle.loginMain2}>
                     <View style={loginStyle.formStyle}>
                         <View style={loginStyle.formInputWarp}>
                             <View style={[loginStyle.formInput, loginStyle.formInputSplit]}>
@@ -132,11 +134,14 @@ class registerpwd extends Component {
                             </View>
                         </View>
                     </View>
+                    <View>
+                        <Text style={loginStyle.errorfont}>{text2}</Text>
+                    </View>
                     <View style={loginStyle.btn}>
                         <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
                         <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FFAA00'
                                             onPress={
-                                                this.logout()
+                                                this.logout
                                             }
                         >
                             <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]}>确定</Text>
@@ -157,6 +162,5 @@ export default connect ((state) => {
         }
     },
     (dispatch) => ({
-        loginOut: () => dispatch(loginAction.loginOut()),
     })
 )(registerpwd)

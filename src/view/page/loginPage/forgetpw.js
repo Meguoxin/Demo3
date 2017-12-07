@@ -50,9 +50,9 @@ class Forgetpw extends Component {
         this.computedTabColor = this.computedTabColor.bind(this);
         this.computedzidcolor = this.computedzidcolor.bind(this);
         this.UpColorverification = this.UpColorverification.bind(this);
-        this.logout = this.logout.bind(this);
         this.startInterval = this.startInterval.bind(this);
         this.actiontime = this.actiontime.bind(this);
+        this.logout = this.logout.bind(this);
     }
     computedTabColor(boo){
         this.setState({tabColor: boo});
@@ -113,8 +113,8 @@ class Forgetpw extends Component {
             );
             return;
         }
-        this.props.loginOut()
-        this.props.navigation.navigate("Reset")
+        // this.props.loginOut()
+        // this.props.navigation.navigate("Reset")
     }
     render(){
         const { login,status} = this.props;
@@ -171,7 +171,7 @@ class Forgetpw extends Component {
                             underlayColor='#FFAA00'
                             style={[loginStyle.btnWrap3,this.computedcolor()]}
                                             onPress={
-                                                this.logout.bind(this)
+                                                this.logout
                                             }
                         >
                             <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]}>下一步</Text>
@@ -198,6 +198,5 @@ export default connect ((state) => {
         }
     },
     (dispatch) => ({
-        loginOut: () => dispatch(loginAction.loginOut()),
     })
 )(Forgetpw)

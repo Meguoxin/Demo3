@@ -120,7 +120,7 @@ class Main extends Component {
             );
             return;
         }
-        if(this.state.username>11){
+        if(this.state.username.length>10){
             this.props.loginOut()
             this.props.navigation.navigate("registerpwd")
         }else{
@@ -186,7 +186,7 @@ class Main extends Component {
                     <View style={loginStyle.btn}>
                         <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
                         <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FFAA00'
-                                             onPress={this.logout.bind(this)}
+                                             onPress={this.logout}
                         >
                             <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]}>{status}</Text>
                         </TouchableHighlight>

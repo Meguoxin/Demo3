@@ -24,6 +24,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginVertical: 25,
     },
+    loginMain2: {
+        flex:1,
+        justifyContent: 'flex-start',
+        marginVertical: 25,
+    },
     navigation: {
         flexDirection: "row",
         justifyContent: "space-around",
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
     btnWrap:{
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 40,
+        marginTop: 17,
         height: 38,
         width: 295,
         borderRadius: 100,
@@ -146,9 +151,12 @@ const styles = StyleSheet.create({
         right: 0,
     },
    errorfont:{
-        marginTop:13,
+       alignSelf:'flex-start',
+       flexDirection:'row',
+       marginTop:5,
        fontSize:14,
-       color:"#FF5A5A"
+       color:"#FF5A5A",
+       alignItems: 'center',
    }
 });
 

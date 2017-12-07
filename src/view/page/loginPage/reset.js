@@ -80,8 +80,9 @@ class reset extends Component {
     logout() {
         if((this.state.username===this.state.userpwd)&&(this.state.username&&this.state.userpwd)&&(this.state.username.length>6&&this.state.userpwd.length>6)){
             return ()=> this.props.navigation.navigate("Login")
-        }else{
-            return
+        } else{
+            this.setState({syspwd: false})
+            return;
         }
 
     }
