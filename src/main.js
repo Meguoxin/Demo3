@@ -13,6 +13,8 @@ import { connect } from 'react-redux';
 import  LoginPage  from './view/page/login';
 import MainPage from './view/page/register/register'
 import ForgetPage from './view/page/loginPage/forgetpw';
+import ResetPage from './view/page/loginPage/reset';
+import registerpwdPage from './view/page/register/registerpwd';
 
 const App = StackNavigator({
     Login: {
@@ -23,6 +25,12 @@ const App = StackNavigator({
     },
     Forgetpw: {
         screen: ForgetPage
+    },
+    Reset: {
+        screen: ResetPage
+    },
+    registerpwd: {
+        screen: registerpwdPage
     },
 });
 

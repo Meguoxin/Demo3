@@ -15,6 +15,7 @@ import loginStyle from '../../style/login';
 import { NavigationActions } from 'react-navigation';
 // import {login} from '../../../redux/actions/user';
 import orgetpw from '../loginPage/forgetpw';
+import LinearGradient from 'react-native-linear-gradient'
 
 const resetAction = NavigationActions.reset({
     index: 0,
@@ -44,12 +45,12 @@ export default class LoginForm extends Component {
     }
     computedcolor(){
         if(this.state.username&&this.state.userpwd){
-            return {backgroundColor:"#FFAA00"}
+            return {}
         }else{
             return {backgroundColor:"#CCCCCC"}
         }
     }
-    computezidcolor(){
+    computedzidcolor(){
         if(this.state.username.length>0&&this.state.userpwd.length>0){
             return {color:"#FFFFFF"}
         }else{
@@ -96,7 +97,7 @@ export default class LoginForm extends Component {
                                 style={[loginStyle.loginInput,{padding:0}]}
                                 secureTextEntry={this.onChangpwdstate()}
                                 clearButtonMode="never"
-                                placeholder='密码'
+                                placeholder='6-12位密码'
                                 onChangeText={(text) => {
                                     this.setState({userpwd: text});
                                 }}
@@ -116,17 +117,21 @@ export default class LoginForm extends Component {
                     </View>
                 </View>
                 <View style={loginStyle.btn}>
-                    <TouchableHighlight style={[loginStyle.btnWrap,this.computedcolor()]} underlayColor='#FFAA00'
+                    <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
+                    <TouchableHighlight
+                        style={[loginStyle.btnWrap3,this.computedcolor()]}
+                        underlayColor='#FFAA00'
                                         onPress={()=>{
                                             this.handleLogin()
                                         }}>
-                        <Text style={[loginStyle.loginBtn1,this.computezidcolor()]} >{status}</Text>
+                        <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]} >{status}</Text>
                     </TouchableHighlight>
+                    </LinearGradient>
                 </View>
                 <View style={loginStyle.btn}>
                     <TouchableOpacity style={loginStyle.btnWrap2}
                         onPress={()=>
-                            this.props.navigation.navigate("Main")
+                            this.props.navigation.navigate("Forgetpw")
                         }
                     >
                         <Text style={loginStyle.loginforget} >忘了密码？</Text>

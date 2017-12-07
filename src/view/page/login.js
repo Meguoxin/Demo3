@@ -15,14 +15,13 @@ import common from '../style/common';
 import loginStyle from '../style/login';
 import *as userAction from '../../redux/actions/user';
 import LoginForm from './loginPage/loginForm';
-import RegFrom from './loginPage/regFrom';
+import RegFrom from './loginPage/shortMessageFrom';
 import { NavigationActions } from 'react-navigation';
 
-
-const forgetAction = NavigationActions.reset({
+const resetAction = NavigationActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({ routeName: 'Forgetpw'})
+        NavigationActions.navigate({ routeName: 'Main'})
     ],
 })
 
@@ -48,7 +47,7 @@ class loginPage extends Component {
             // 登录完成,切成功登录
             if (nextProps.status === '成功' && nextProps.isSuccess) {
             this.props.navigation.dispatch(resetAction)
-            return false;
+                return false;
         }
         return true;
     }
@@ -98,7 +97,7 @@ class loginPage extends Component {
                             case 'login':
                                 return (<LoginForm login = {login} status = {status} navigation={this.props.navigation}/>)
                             case 'reg':
-                                return (<RegFrom  login = {login} status = {status}/>)
+                                return (<RegFrom  login = {login} status = {status} navigation={this.props.navigation}/>)
                         }
                     })()
                 }

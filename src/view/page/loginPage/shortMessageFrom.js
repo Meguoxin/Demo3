@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import loginStyle from '../../style/login';
 // import TimerButton from '../timeing';
+import LinearGradient from 'react-native-linear-gradient'
 
 export default class regFrom extends Component {
     constructor(props) {
@@ -28,6 +29,7 @@ export default class regFrom extends Component {
             secends: 60,
             verification:true,
             verificationcolor:{backgroundColor:"#FFAA00"},
+
         };
         this.handleLogin = this.handleLogin.bind(this);
     }
@@ -66,12 +68,12 @@ export default class regFrom extends Component {
     }
     computedcolor(){
         if(this.state.username.length&&this.state.userpwd.length){
-            return {backgroundColor:"#FFAA00"}
+            return {}
         }else{
             return {backgroundColor:"#CCCCCC"}
         }
     }
-    computezidcolor(){
+    computedzidcolor(){
         if(this.state.username.length&&this.state.userpwd.length){
             return {color:"#FFFFFF"}
         }else{
@@ -104,7 +106,7 @@ export default class regFrom extends Component {
                         <View style={[loginStyle.formInput, loginStyle.formInputSplit]}>
                             <TextInput
                                 ref="login_name"
-                                placeholder='手机号'
+                                placeholder='11位中国大陆手机号'
                                 style={[loginStyle.loginInput,{padding:0}]}
                                 autoFocus={true}
                                 clearButtonMode="always"
@@ -120,7 +122,7 @@ export default class regFrom extends Component {
                                 style={[loginStyle.loginInput,{padding:0}]}
                                 secureTextEntry={false}
                                 clearButtonMode="never"
-                                placeholder='验证码'
+                                placeholder='短信验证码'
                                 underlineColorAndroid={'transparent'}
                                 onChangeText={(text) => {
                                     this.setState({userpwd: text});
@@ -137,13 +139,19 @@ export default class regFrom extends Component {
                     </View>
                 </View>
                 <View style={loginStyle.btn}>
-                    <TouchableHighlight style={[loginStyle.btnWrap,this.computedcolor()]}  underlayColor='#FFAA00'
+                    <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
+                    <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FFAA00'
                                         onPress={()=>{this.handleLogin()}}>
-                        <Text style={[loginStyle.loginBtn1,this.computezidcolor()]}>{status}</Text>
+                        <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]}>{status}</Text>
                     </TouchableHighlight>
+                    </LinearGradient>
                 </View>
                 <View style={loginStyle.btn}>
-                    <TouchableOpacity style={loginStyle.btnWrap2}>
+                    <TouchableOpacity style={loginStyle.btnWrap2}
+                                      onPress={()=>
+                                          this.props.navigation.navigate("Forgetpw")
+                                      }
+                    >
                         <Text style={loginStyle.loginforget} >忘了密码？</Text>
                     </TouchableOpacity>
                 </View>

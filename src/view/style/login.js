@@ -40,13 +40,22 @@ const styles = StyleSheet.create({
     formStyle: {
         alignSelf: 'stretch',
         backgroundColor:'#FFFFFF',
-        height: 110,
+        height: 130,
         marginTop:40
     },
 
     formInputWarp: {
         flex: 1,
 
+    },
+    linearGradient: {
+        justifyContent:'center',
+        alignItems:'center',
+        width:200,
+        height:50,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 5
     },
 
     formInput:{
@@ -57,7 +66,6 @@ const styles = StyleSheet.create({
     },
     verification:{
         right: 0,
-        top: 20,
         position: 'absolute',
     },
    image:{
@@ -94,8 +102,13 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         backgroundColor: '#DDDDDD'
     },
-
-
+    btnWrap3:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 38,
+        width: 295,
+        borderRadius: 100,
+    },
     btnWrap1:{
         marginTop: 35,
         marginLeft:30,
@@ -132,7 +145,11 @@ const styles = StyleSheet.create({
         width:22,
         right: 0,
     },
-
+   errorfont:{
+        marginTop:13,
+       fontSize:14,
+       color:"#FF5A5A"
+   }
 });
 
 module.exports = styles;

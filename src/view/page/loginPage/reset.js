@@ -18,16 +18,9 @@ import *as loginAction from '../../../redux/actions/user';
 import { NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient'
 
-const resetAction = NavigationActions.reset({
-    index: 0,
-    actions: [
-        NavigationActions.navigate({ routeName: 'Reset'})
-    ],
-})
-
-class Forgetpw extends Component {
+class reset extends Component {
     static navigationOptions = ({navigation})=>({
-        title:"找回密码",
+        title:"重置密码",
         headerBackTitle:'返回',
         headerTruncatedBackTitle:'回退',
         alignSelf:'center'
@@ -44,28 +37,26 @@ class Forgetpw extends Component {
             username: "",
             userpwd:"",
             bgColor:{backgroundColor:"#CCCCCC"},
-            shortmessage:"获取验证码",
+            syspwd:""
         };
-        this.computedcolor = this.computedcolor.bind(this);
         this.computedTabColor = this.computedTabColor.bind(this);
-        this.computedzidcolor = this.computedzidcolor.bind(this);
+        this.computedcolor = this.computedcolor.bind(this);
+        this.computezidcolor = this.computezidcolor.bind(this);
         this.UpColorverification = this.UpColorverification.bind(this);
         this.logout = this.logout.bind(this);
-        this.startInterval = this.startInterval.bind(this);
-        this.actiontime = this.actiontime.bind(this);
     }
     computedTabColor(boo){
         this.setState({tabColor: boo});
     }
     computedcolor(){
-        if(this.state.username.length&&this.state.userpwd.length){
+        if((this.state.username.length>6&&this.state.userpwd.length>6)&&(this.state.username===this.state.userpwd)){
             return {}
         }else{
             return {backgroundColor:"#CCCCCC"}
         }
     }
-    computedzidcolor(){
-        if(this.state.username.length>0&&this.state.userpwd.length>0){
+    computezidcolor(){
+        if((this.state.username.length>6&&this.state.userpwd.length>6)&&(this.state.username===this.state.userpwd)){
             return {color:"#FFFFFF"}
         }else{
             return {color:"#666666"}
@@ -77,22 +68,6 @@ class Forgetpw extends Component {
             this.startInterval();
         }
     }
-    startInterval(){
-        // 变文字, 变颜色
-        this.setState({verification: false, tabColor: true})
-        this.timer && clearInterval(this.timer)
-        let {time} = this.state;
-        this.timer = setInterval(()=>{
-            this.setState({time: --time})
-            if(!time){
-                clearInterval(this.timer);
-                this.setState({verification: true, time: 60, tabColor: false,shortmessage:"重新获取验证码"});
-            }
-        }, 1000)
-    }
-    componentWillUnmount(){
-        this.timer && clearInterval(this.timer)
-    }
     UpColorverification(){
         if(!this.state.verification){
             // 禁用状态
@@ -103,24 +78,18 @@ class Forgetpw extends Component {
     }
     //ComponentUpdate生命周期方法
     logout() {
-        if(!this.state.username||!this.state.userpwd){
-            Alert.alert(
-                '提示',
-                '用户名或验证码不能为空！',
-                [{
-                    text: '好的'
-                }]
-            );
-            return;
+        if((this.state.username===this.state.userpwd)&&(this.state.username&&this.state.userpwd)&&(this.state.username.length>6&&this.state.userpwd.length>6)){
+            return ()=> this.props.navigation.navigate("Login")
+        }else{
+            return
         }
-        this.props.loginOut()
-        this.props.navigation.navigate("Reset")
+
     }
     render(){
         const { login,status} = this.props;
         const { time,verification,tabColor } = this.state;
         var text = tabColor ?{color:'#CCCCCC'} : {color:'#FF7400'};
-        var text1 = verification ? this.state.shortmessage : `重新发送(${time})`;
+        var text1 = verification ?"获取验证码": `重新发送(${time})`;
         return(
             <View style={[common.wrapper, loginStyle.loginWrap]}>
                 <View style={loginStyle.loginMain1}>
@@ -129,7 +98,7 @@ class Forgetpw extends Component {
                             <View style={[loginStyle.formInput, loginStyle.formInputSplit]}>
                                 <TextInput
                                     ref="login_name"
-                                    placeholder='11位中国大陆手机号'
+                                    placeholder='请输入6-12位新密码'
                                     style={[loginStyle.loginInput,{padding:0}]}
                                     autoFocus={true}
                                     clearButtonMode="always"
@@ -144,8 +113,8 @@ class Forgetpw extends Component {
                                     ref="login_psw"
                                     style={[loginStyle.loginInput,{padding:0}]}
                                     secureTextEntry={false}
-                                    clearButtonMode="never"
-                                    placeholder='短信验证码'
+                                    clearButtonMode="always"
+                                    placeholder='再次输入新密码'
                                     underlineColorAndroid={'transparent'}
                                     onChangeText={(text) => {
                                         this.setState({userpwd: text});
@@ -157,24 +126,18 @@ class Forgetpw extends Component {
                                         this.computedTabColor(true)
                                     }}
                                 />
-                                <TouchableOpacity style={loginStyle.verification}>
-                                    <Text style={text} onPress={()=>{
-                                        this.actiontime()
-                                    }}>{text1}</Text>
-                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
                     <View style={loginStyle.btn}>
                         <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
-                        <TouchableHighlight
-                            underlayColor='#FFAA00'
-                            style={[loginStyle.btnWrap3,this.computedcolor()]}
+                        <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FFAA00'
                                             onPress={
-                                                this.logout.bind(this)
+                                                    this.logout()
                                             }
+
                         >
-                            <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]}>下一步</Text>
+                            <Text style={[loginStyle.loginBtn1,this.computezidcolor()]}>确定</Text>
                         </TouchableHighlight>
                         </LinearGradient>
                     </View>
@@ -188,6 +151,7 @@ class Forgetpw extends Component {
             </View>
         )
     }
+
 }
 
 export default connect ((state) => {
@@ -200,4 +164,4 @@ export default connect ((state) => {
     (dispatch) => ({
         loginOut: () => dispatch(loginAction.loginOut()),
     })
-)(Forgetpw)
+)(reset)
