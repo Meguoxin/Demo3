@@ -71,8 +71,12 @@ class Main extends Component {
     actiontime() {
         if (this.state.verification && this.state.username.length > 0) {
             // 开启计时器
-            this.props.sendCode(this.state.username);
             this.startInterval();
+            this.props.sendCode(this.state.username);
+            this.props.nameSuccess();
+        }
+        else if(this.state.username.length === 0){
+            this.props.Phonesetnull();
         }
     }
     /*     onChangeverification() {
@@ -85,10 +89,10 @@ class Main extends Component {
         let {time} = this.state;
         this.timer = setInterval(()=>{
             this.setState({time: --time})
-            if(!time){
-                clearInterval(this.timer);
-                this.setState({verification: true, time: 60, tabColor: false,shortmessage:"重新获取验证码"});
-            }
+                if(!time){
+                    clearInterval(this.timer);
+                    this.setState({verification: true, time: 60, tabColor: false,shortmessage:"重新获取验证码"});
+                }
         }, 1000)
     }
     componentWillUnmount(){
@@ -219,6 +223,7 @@ export default connect ((state) => {
     (dispatch) => ({
         login: (a,b) => dispatch(loginAction.login(a,b)),
         sendCode: (a) => dispatch(loginAction.sendCode(a)),
-        Phonesetnull: () => dispatch(loginAction.Phonesetnull)
+        Phonesetnull: () => dispatch(loginAction.Phonesetnull()),
+        nameSuccess: () => dispatch(loginAction.nameSuccess())
     })
 )(Main)

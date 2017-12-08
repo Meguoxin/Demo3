@@ -76,6 +76,11 @@ export function Phonesetnull() {
         type:types.REGISTER_IN_PHONESETNULL,
     }
 }
+export function nameSuccess() {
+    return{
+        type:types.REGISTER_IN_PHONESETFIX,
+    }
+}
 export function loginOut() {
     return{
         type:types.REGISTER_IN_OUT,

@@ -36,9 +36,7 @@ export default class regFrom extends Component {
         if(this.state.verification&&this.state.username.length>0){
             // 开启计时器
             this.props.SmsCodelogin(this.state.username);
-            if(this.props.smsCode===true){
-                this.startInterval();
-            }
+            this.startInterval();
             this.props.nameSuccess();
         }
         else if(this.state.username.length === 0){

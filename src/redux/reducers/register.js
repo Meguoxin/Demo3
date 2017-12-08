@@ -69,6 +69,12 @@ export default user = (state = initialState, action = {}) => {
                 regerro:"请输入11位手机号码",
             }
             break;
+        case types.REGISTER_IN_PHONESETFIX:
+            return {
+                ...state,
+                regerro:"",
+            }
+            break;
         default:
             return state;
     }
