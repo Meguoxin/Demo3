@@ -35,12 +35,18 @@ export default class regFrom extends Component {
     actiontime(){
         if(this.state.verification&&this.state.username.length>0){
             // 开启计时器
-            this.props.SmsCodelogin(this.state.username);
-            this.startInterval();
+            this.props.SmsCodelogin(this.state.username).then(
+                res =>{
+                    console.log(res,"sssssss")
+                    if(res.State === 1){
+                        this.startInterval();
+                    }
+                }
+            );
             this.props.nameSuccess();
         }
         else if(this.state.username.length === 0){
-           this.props.forgetusername();
+            this.props.forgetusername();
         }
     }
     startInterval(){
@@ -148,10 +154,10 @@ export default class regFrom extends Component {
                 </View>
                 <View style={loginStyle.btn}>
                     <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
-                    <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FF9800'
-                                        onPress={()=>{this.handleLogin()}}>
-                        <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]}>{shortstatus}</Text>
-                    </TouchableHighlight>
+                        <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FF9800'
+                                            onPress={()=>{this.handleLogin()}}>
+                            <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]}>{shortstatus}</Text>
+                        </TouchableHighlight>
                     </LinearGradient>
                 </View>
                 <View style={loginStyle.btn}>

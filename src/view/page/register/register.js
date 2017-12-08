@@ -51,9 +51,6 @@ class Main extends Component {
         this.startInterval = this.startInterval.bind(this);
         this.actiontime = this.actiontime.bind(this);
     }
-    computedTabColor(boo){
-        this.setState({tabColor: boo});
-    }
     computedcolor(){
         if(this.state.username.length&&this.state.userpwd.length){
             return {}
@@ -69,10 +66,16 @@ class Main extends Component {
         }
     }
     actiontime() {
-        if (this.state.verification && this.state.username.length > 0) {
+        if (this.state.verification && this.state.username.length > 0&&!this.state.tabColor) {
             // 开启计时器
-            this.startInterval();
-            this.props.sendCode(this.state.username);
+            this.props.sendCode(this.state.username).then(
+                    res => {
+                        console.log(res,"sssssss")
+                        if(res.State === 1){
+                            this.startInterval();
+                        }
+                    }
+              );
             this.props.nameSuccess();
         }
         else if(this.state.username.length === 0){
@@ -82,6 +85,9 @@ class Main extends Component {
     /*     onChangeverification() {
      this.setState({verification: !this.state.verification})
      } */
+    computedTabColor(boo){
+        this.setState({tabColor: boo});
+    }
     startInterval(){
         // 变文字, 变颜色
         this.setState({verification: false, tabColor: true})

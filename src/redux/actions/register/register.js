@@ -43,8 +43,7 @@ export function sendCode(Phone) {
     console.log('获取验证码方法');
     return (dispatch) => {
         console.log('doing');
-        setTimeout(() => {
-            let inner_get = fetch('https://wxapi-v2.langlib.com/Api/Account/CheckPhoneAndSendSmsCode', {
+            return fetch('https://wxapi-v2.langlib.com/Api/Account/CheckPhoneAndSendSmsCode', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -63,12 +62,9 @@ export function sendCode(Phone) {
                     }else{
                         dispatch({'type': types.REGISTER_IN_SMSCODE_FAIL});
                     }
-
+                    return json;
                 }
-            ).catch((e)=>{
-                dispatch({'type': types.REGISTER_IN_ERROR, error: e});
-            });
-        });
+            )
     }
 }
 export function Phonesetnull() {

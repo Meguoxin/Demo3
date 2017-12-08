@@ -43,8 +43,7 @@ export function SmsCodelogin(Phone) {
     console.log('获取短信验证码');
     return (dispatch) => {
         console.log('doing');
-        setTimeout(() => {
-            let inner_get = fetch('https://wxapi-v2.langlib.com/Api/Account/CheckPhoneAndSendSmsCode', {
+            return fetch('https://wxapi-v2.langlib.com/Api/Account/CheckPhoneAndSendSmsCode', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -63,11 +62,9 @@ export function SmsCodelogin(Phone) {
                     }else{
                         dispatch({'type': types.SMSCODE_FAIL});
                     }
+                    return json;
                 }
-            ).catch((e)=>{
-                dispatch({'type': types.SHORT_IN_ERROR, error: e});
-            });
-        });
+            )
     }
 }
 export function forgetusername() {
