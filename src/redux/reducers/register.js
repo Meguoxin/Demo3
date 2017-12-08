@@ -3,8 +3,8 @@ const initialState = {
     status: '注册',
     isSuccess: false,
     user: null,
-    erro:"",
-    smsCode:false
+    regerro:"",
+    getShort:false
 }
 
 export default user = (state = initialState, action = {}) => {
@@ -15,7 +15,6 @@ export default user = (state = initialState, action = {}) => {
                 status: '正在',
                 isSuccess: false,
                 user: null,
-                erro:""
             }
             break;
         case types.REGISTER_IN_DONE:
@@ -24,7 +23,6 @@ export default user = (state = initialState, action = {}) => {
                 status: '成功',
                 isSuccess: true,
                 user: action.user,
-                erro:""
             }
             break;
         case types.REGISTER_IN_ERROR:
@@ -33,7 +31,6 @@ export default user = (state = initialState, action = {}) => {
                 status: '注册出错',
                 isSuccess: true,
                 user: null,
-                erro:"账号或密码输入错误,请重新输入"
             }
             break;
         case types.REGISTER_IN_REGERROR:
@@ -42,7 +39,6 @@ export default user = (state = initialState, action = {}) => {
                 status: '注册',
                 isSuccess: false,
                 user: null,
-                erro:"手机号或者是验证码输入错误"
             }
             break;
         case types.REGISTER_IN_OUT:
@@ -51,32 +47,26 @@ export default user = (state = initialState, action = {}) => {
                 status: '注册',
                 isSuccess: false,
                 user: null,
-                erro:""
             }
             break;
-        case types.REGSMSCODE_SUCCESS:
+        case types.REGISTER_IN_SMSCODE_SUCCESS:
             return {
                 ...state,
-                smsCode:true
+                regerro:"",
+                getShort:true
             }
             break;
-        case types.REGSMSCODE_FAIL:
+        case types.REGISTER_IN_SMSCODE_FAIL:
             return {
                 ...state,
-                smsCode:false,
-                erro:"获取验证码失败"
+                regerro:"获取验证码失败",
+                getShort:false,
             }
             break;
-        case types.REGSMSCODEUSERNAME_SUCCESS:
+        case types.REGISTER_IN_PHONESETNULL:
             return {
                 ...state,
-                erro:""
-            }
-            break;
-        case types.REGSMSCODEFORGETUSERNAME_FAIL:
-            return {
-                ...state,
-                erro:"请输入11位手机号码"
+                regerro:"请输入11位手机号码",
             }
             break;
         default:

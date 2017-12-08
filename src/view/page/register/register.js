@@ -68,17 +68,11 @@ class Main extends Component {
             return {color:"#666666"}
         }
     }
-    actiontime(){
-        if(this.state.verification&&this.state.username.length>0){
+    actiontime() {
+        if (this.state.verification && this.state.username.length > 0) {
             // 开启计时器
-            this.props.sendCodelogin(this.state.username);
-            if(this.props.smsCode===true){
-                this.startInterval();
-            }
-            this.props.nameSuccess();
-        }
-       else if(this.state.username.length === 0){
-            this.props.forgetusername();
+            this.props.sendCode(this.state.username);
+            this.startInterval();
         }
     }
     /*     onChangeverification() {
@@ -113,7 +107,7 @@ class Main extends Component {
         if(!this.state.username||!this.state.userpwd){
             Alert.alert(
                 '提示',
-                '用户名或验证码不能为空！',
+                '用户名或验证码不能为空！'+this.props.getShort,
                 [{
                     text: '好的'
                 }]
@@ -122,7 +116,7 @@ class Main extends Component {
         }
         if(this.state.username.length>10){
             this.props.login(this.state.username,this.state.userpwd)
-            if(this.state.isSuccess){
+            if(this.state.isSuccess===true){
                 this.props.navigation.navigate("registerpwd")
             }
         }else{
@@ -137,7 +131,7 @@ class Main extends Component {
         }
     }
     render(){
-        const { login,status,erro} = this.props;
+        const { login,status,regerro} = this.props;
         const { time,verification,tabColor } = this.state;
         var text = tabColor ?{color:'#CCCCCC'} : {color:'#FF7400'};
         var text1 = verification ?this.state.shortmessage : `重新发送(${time})`;
@@ -186,7 +180,7 @@ class Main extends Component {
                         </View>
                     </View>
                     <View style={loginStyle.feedback}>
-                        <Text style={loginStyle.errorfont}>{erro}</Text>
+                        <Text style={loginStyle.errorfont}>{regerro}</Text>
                     </View>
                     <View style={loginStyle.btn}>
                         <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
@@ -218,14 +212,13 @@ export default connect ((state) => {
             status: state.register.status,
             isSuccess: state.register.isSuccess,
             user: state.register.user,
-            erro:state.register.erro,
-            smsCode:state.register.smsCode,
+            getShort:state.register.getShort,
+            regerro:state.register.regerro,
         }
     },
     (dispatch) => ({
         login: (a,b) => dispatch(loginAction.login(a,b)),
-        sendCodelogin: (a) => dispatch(loginAction.sendCodelogin(a)),
-        nameSuccess: () => dispatch(loginAction.nameSuccess()),
-        forgetusername : () => dispatch(loginAction.forgetusername())
+        sendCode: (a) => dispatch(loginAction.sendCode(a)),
+        Phonesetnull: () => dispatch(loginAction.Phonesetnull)
     })
 )(Main)

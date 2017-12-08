@@ -27,9 +27,9 @@ export function login(Phone,shortMsg) {
                 (json) => {
                     console.log('in');
                     if(json.State === 1 ){
-                        dispatch({'type': types.REGISTER_IN_DONE, user: json.Data});
+                        dispatch({'type': types.REGISTER_IN_SMSCODE_SUCCESS, user: json.Data});
                     }else{
-                        dispatch({'type': types.REGISTER_IN_REGERROR});
+                        dispatch({'type': types.REGISTER_IN_SMSCODE_FAIL});
                     }
 
                 }
@@ -39,9 +39,8 @@ export function login(Phone,shortMsg) {
         });
     }
 }
-
-export function sendCodelogin(Phone) {
-    console.log('获取短信验证码');
+export function sendCode(Phone) {
+    console.log('获取验证码方法');
     return (dispatch) => {
         console.log('doing');
         setTimeout(() => {
@@ -52,7 +51,7 @@ export function sendCodelogin(Phone) {
                 },
                 body: JSON.stringify({
                     Phone: Phone,
-                    IsLogin: false
+                    IsLogin: false,
                 })
             }).then((res)=>
                 res.json()
@@ -60,9 +59,9 @@ export function sendCodelogin(Phone) {
                 (json) => {
                     console.log('in');
                     if(json.State===1 ){
-                        dispatch({'type': types.REGSMSCODE_SUCCESS, user: json.Data});
+                        dispatch({'type': types.REGISTER_IN_SMSCODE_SUCCESS, user: json.Data});
                     }else{
-                        dispatch({'type': types.REGSMSCODE_FAIL});
+                        dispatch({'type': types.REGISTER_IN_SMSCODE_FAIL});
                     }
 
                 }
@@ -72,14 +71,9 @@ export function sendCodelogin(Phone) {
         });
     }
 }
-export function forgetusername() {
+export function Phonesetnull() {
     return{
-        type:types.REGSMSCODEFORGETUSERNAME_FAIL,
-    }
-}
-export function nameSuccess(){
-    return{
-        type:types.REGSMSCODEUSERNAME_SUCCESS,
+        type:types.REGISTER_IN_PHONESETNULL,
     }
 }
 export function loginOut() {

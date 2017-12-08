@@ -39,7 +39,6 @@ export function login(Phone,UserPwd) {
         });
     }
 }
-
 export function loginOut() {
     return{
         type:types.LOGIN_IN_OUT,
