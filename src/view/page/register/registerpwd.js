@@ -14,7 +14,7 @@ import {
 import loginStyle from '../../style/login';
 import common from '../../style/common';
 import { connect } from 'react-redux';
-import *as loginAction from '../../../redux/actions/user';
+import *as loginAction from '../../../redux/actions/user/user';
 import { NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -97,8 +97,8 @@ class registerpwd extends Component {
         var text2 = syspwd ?"": "两次密码输入不一致";
         return(
             <View style={[common.wrapper, loginStyle.loginWrap]}>
-                <View style={loginStyle.loginMain2}>
-                    <View style={loginStyle.formStyle}>
+                <View style={loginStyle.loginMain1}>
+                    <View style={loginStyle.formStyle1}>
                         <View style={loginStyle.formInputWarp}>
                             <View style={[loginStyle.formInput, loginStyle.formInputSplit]}>
                                 <TextInput
@@ -134,12 +134,12 @@ class registerpwd extends Component {
                             </View>
                         </View>
                     </View>
-                    <View>
+                    <View style={loginStyle.feedback}>
                         <Text style={loginStyle.errorfont}>{text2}</Text>
                     </View>
                     <View style={loginStyle.btn}>
                         <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
-                        <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FFAA00'
+                        <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FF9800'
                                             onPress={
                                                 this.logout
                                             }
@@ -160,7 +160,5 @@ export default connect ((state) => {
             isSuccess: state.user.isSuccess,
             user: state.user.user,
         }
-    },
-    (dispatch) => ({
-    })
+    }
 )(registerpwd)

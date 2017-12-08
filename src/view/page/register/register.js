@@ -12,18 +12,11 @@ import {
     Modal,Button
 } from 'react-native';
 import { connect } from 'react-redux';
-import *as loginAction from '../../../redux/actions/register';
+import *as loginAction from '../../../redux/actions/register/register';
 import { NavigationActions } from 'react-navigation';
 import loginStyle from '../../style/login';
 import common from '../../style/common';
 import LinearGradient from 'react-native-linear-gradient'
-
-const resetAction = NavigationActions.reset({
-    index: 0,
-    actions: [
-        NavigationActions.navigate({ routeName: 'Forgetpw'})
-    ],
-})
 
 class Main extends Component {
     static navigationOptions = ({navigation})=>({
@@ -76,9 +69,16 @@ class Main extends Component {
         }
     }
     actiontime(){
-        if(this.state.verification){
+        if(this.state.verification&&this.state.username.length>0){
             // 开启计时器
-            this.startInterval();
+            this.props.sendCodelogin(this.state.username);
+            if(this.props.smsCode===true){
+                this.startInterval();
+            }
+            this.props.nameSuccess();
+        }
+       else if(this.state.username.length === 0){
+            this.props.forgetusername();
         }
     }
     /*     onChangeverification() {
@@ -121,8 +121,10 @@ class Main extends Component {
             return;
         }
         if(this.state.username.length>10){
-            this.props.loginOut()
-            this.props.navigation.navigate("registerpwd")
+            this.props.login(this.state.username,this.state.userpwd)
+            if(this.state.isSuccess){
+                this.props.navigation.navigate("registerpwd")
+            }
         }else{
             Alert.alert(
                 '提示',
@@ -135,14 +137,14 @@ class Main extends Component {
         }
     }
     render(){
-        const { login,status} = this.props;
+        const { login,status,erro} = this.props;
         const { time,verification,tabColor } = this.state;
         var text = tabColor ?{color:'#CCCCCC'} : {color:'#FF7400'};
         var text1 = verification ?this.state.shortmessage : `重新发送(${time})`;
         return (
             <View style={[common.wrapper, loginStyle.loginWrap]}>
                 <View style={loginStyle.loginMain1}>
-                    <View style={loginStyle.formStyle}>
+                    <View style={loginStyle.formStyle1}>
                         <View style={loginStyle.formInputWarp}>
                             <View style={[loginStyle.formInput, loginStyle.formInputSplit]}>
                                 <TextInput
@@ -183,9 +185,12 @@ class Main extends Component {
                             </View>
                         </View>
                     </View>
+                    <View style={loginStyle.feedback}>
+                        <Text style={loginStyle.errorfont}>{erro}</Text>
+                    </View>
                     <View style={loginStyle.btn}>
                         <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
-                        <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FFAA00'
+                        <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FF9800'
                                              onPress={this.logout}
                         >
                             <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]}>{status}</Text>
@@ -213,9 +218,14 @@ export default connect ((state) => {
             status: state.register.status,
             isSuccess: state.register.isSuccess,
             user: state.register.user,
+            erro:state.register.erro,
+            smsCode:state.register.smsCode,
         }
     },
     (dispatch) => ({
-        loginOut: () => dispatch(loginAction.loginOut()),
+        login: (a,b) => dispatch(loginAction.login(a,b)),
+        sendCodelogin: (a) => dispatch(loginAction.sendCodelogin(a)),
+        nameSuccess: () => dispatch(loginAction.nameSuccess()),
+        forgetusername : () => dispatch(loginAction.forgetusername())
     })
 )(Main)

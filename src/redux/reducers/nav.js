@@ -3,7 +3,7 @@
 import { NavigationActions } from 'react-navigation';
 import { AppNavigation } from '../../main';
 
-import * as TYPES from '../actions/loginTypes';
+import * as TYPES from '../actions/user/loginTypes';
 import login from "../../view/page/login";
 
 // const mainAction = AppNavigation.router.getActionForPathAndParams('Main');

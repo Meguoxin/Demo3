@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {bindActionCreators} from 'redux';
 import Counter from './view/page/counter';
-import * as counterActions from './redux/actions/user';
+import * as counterActions from './redux/actions/user/user';
 import { addNavigationHelpers, StackNavigator,NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import  LoginPage  from './view/page/login';

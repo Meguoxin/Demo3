@@ -1,4 +1,4 @@
-import * as types from './registerTypes';
+import * as types from './forgetpwTypes';
 
 let user = {
     name: 'zhangsan',
@@ -22,19 +22,19 @@ export function login() {
 
 export function loginOut() {
     return{
-        type:types.LOGIN_IN_OUT,
+        type:types.FORGET_IN_OUT,
     }
 }
 function isLogining() {
     return {
-        type: types.LOGIN_IN_DOING
+        type: types.FORGET_IN_DOING
     }
 }
 
 function loginSuccess(isSuccess, user) {
     console.log('success');
     return {
-        type: types.LOGIN_IN_DONE,
+        type: types.FORGET_IN_DONE,
         user: user,
     }
 }
@@ -42,6 +42,6 @@ function loginSuccess(isSuccess, user) {
 function loginError(isSuccess) {
     console.log('error');
     return {
-        type: types.LOGIN_IN_ERROR,
+        type: types.FORGET_IN_ERROR,
     }
 }

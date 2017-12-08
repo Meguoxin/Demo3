@@ -14,7 +14,7 @@ import {
 import loginStyle from '../../style/login';
 import common from '../../style/common';
 import { connect } from 'react-redux';
-import *as loginAction from '../../../redux/actions/user';
+import *as loginAction from '../../../redux/actions/forgetpwd/forgetpw';
 import { NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -113,8 +113,19 @@ class Forgetpw extends Component {
             );
             return;
         }
-        // this.props.loginOut()
-        // this.props.navigation.navigate("Reset")
+        if(this.state.username.length>10){
+            this.props.loginOut()
+            this.props.navigation.navigate("Reset")
+        }else{
+            Alert.alert(
+                '提示',
+                '手机号书写错误',
+                [{
+                    text: '好的'
+                }]
+            );
+            return;
+        }
     }
     render(){
         const { login,status} = this.props;
@@ -124,7 +135,7 @@ class Forgetpw extends Component {
         return(
             <View style={[common.wrapper, loginStyle.loginWrap]}>
                 <View style={loginStyle.loginMain1}>
-                    <View style={loginStyle.formStyle}>
+                    <View style={loginStyle.formStyle1}>
                         <View style={loginStyle.formInputWarp}>
                             <View style={[loginStyle.formInput, loginStyle.formInputSplit]}>
                                 <TextInput
@@ -165,16 +176,19 @@ class Forgetpw extends Component {
                             </View>
                         </View>
                     </View>
+                    <View style={loginStyle.feedback}>
+                        <Text style={loginStyle.errorfont}>验证码格式不正确</Text>
+                    </View>
                     <View style={loginStyle.btn}>
                         <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
                         <TouchableHighlight
-                            underlayColor='#FFAA00'
+                            underlayColor='#FF9800'
                             style={[loginStyle.btnWrap3,this.computedcolor()]}
                                             onPress={
                                                 this.logout
                                             }
                         >
-                            <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]}>下一步</Text>
+                            <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]}>{status}</Text>
                         </TouchableHighlight>
                         </LinearGradient>
                     </View>
@@ -192,11 +206,12 @@ class Forgetpw extends Component {
 
 export default connect ((state) => {
         return {
-            status: state.user.status,
-            isSuccess: state.user.isSuccess,
-            user: state.user.user,
+            status: state.forget.status,
+            isSuccess: state.forget.isSuccess,
+            user: state.forget.user,
         }
     },
     (dispatch) => ({
+        loginOut: () => dispatch(loginAction.loginOut()),
     })
 )(Forgetpw)

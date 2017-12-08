@@ -13,7 +13,8 @@ import {
 import { connect } from 'react-redux';
 import common from '../style/common';
 import loginStyle from '../style/login';
-import *as userAction from '../../redux/actions/user';
+import *as userAction from '../../redux/actions/user/user';
+import *as shortAction from '../../redux/actions/shortMessage/shortMessage';
 import LoginForm from './loginPage/loginForm';
 import RegFrom from './loginPage/shortMessageFrom';
 import { NavigationActions } from 'react-navigation';
@@ -45,10 +46,10 @@ class loginPage extends Component {
         }
         shouldComponentUpdate(nextProps, nextState) {
             // 登录完成,切成功登录
-            if (nextProps.status === '成功' && nextProps.isSuccess) {
+            if ((nextProps.status === '成功' && nextProps.isSuccess)) {
             this.props.navigation.dispatch(resetAction)
                 return false;
-        }
+        }else if((nextProps.shortstatus === '成功' && nextProps.shortisSuccess)){}
         return true;
     }
     constructor(props) {
@@ -68,36 +69,45 @@ class loginPage extends Component {
         this.setState({tabState: tab})
     }
     render(){
-        const { login,status } = this.props;
+        const { login,status,user,erro,shortlogin,shortstatus,shortisSuccess,shortuser,shorterro,SmsCodelogin,forgetusername,nameSuccess,smsCode } = this.props;
          return (
             <View style={[common.wrapper, loginStyle.loginWrap]}>
                  <View style={loginStyle.navigation}>
-                 <TouchableOpacity style={[loginStyle.btnWrap1,{borderBottomColor: this.computedTabBar('login'),
-                     borderBottomWidth: 3, paddingVertical: 5}]}
-                onPress={()=>{this.onChangeTab('login')}}
-                 >
-                 <Text style={{
-                     fontSize: 16,
-                     height:20,
-                     color: '#666666'}}>账号登录</Text>
-                </TouchableOpacity>
+                     <TouchableOpacity style={[loginStyle.btnWrap1,{borderBottomColor: this.computedTabBar('login'),
+                         borderBottomWidth: 3, paddingVertical: 5}]}
+                    onPress={()=>{this.onChangeTab('login')}}
+                     >
+                         <Text style={{
+                             fontSize: 16,
+                             height:20,
+                             color: '#666666'}}>账号登录</Text>
+                      </TouchableOpacity>
                      <TouchableOpacity style={[loginStyle.btnWrap1,{borderBottomColor: this.computedTabBar('reg'),
                          borderBottomWidth: 3, paddingVertical: 5}]}
                                        onPress={()=>{this.onChangeTab('reg')}}
                      >
-                     <Text style={{
-                         fontSize: 16,
-                         height:20,
-                         color: '#666666'}}>短信快捷登录</Text>
+                         <Text style={{
+                             fontSize: 16,
+                             height:20,
+                             color: '#666666'}}>短信快捷登录</Text>
                  </TouchableOpacity>
                  </View>
                 {
                     (()=>{
                         switch(this.state.tabState){
                             case 'login':
-                                return (<LoginForm login = {login} status = {status} navigation={this.props.navigation}/>)
+                                return (<LoginForm login = {login} status = {status} navigation={this.props.navigation}
+                                data={user} erro={erro}/>)
                             case 'reg':
-                                return (<RegFrom  login = {login} status = {status} navigation={this.props.navigation}/>)
+                                return (<RegFrom  shortlogin = {shortlogin} shortstatus = {shortstatus}
+                                                  navigation={this.props.navigation}
+                                                  shortisSuccess = {shortisSuccess}
+                                                  shortuser = {shortuser}
+                                                  shorterro= {shorterro}
+                                                  SmsCodelogin={SmsCodelogin}
+                                                  forgetusername={forgetusername}
+                                                  nameSuccess={nameSuccess}
+                                                  smsCode={smsCode}/>)
                         }
                     })()
                 }
@@ -112,10 +122,20 @@ export default connect ((state) => {
             status: state.user.status,
             isSuccess: state.user.isSuccess,
             user: state.user.user,
+            erro:state.user.erro,
+            smsCode:state.shortMessage.smsCode,
+            shortstatus:state.shortMessage.shortstatus,
+            shortisSuccess:state.shortMessage.shortisSuccess,
+            shortuser:state.shortMessage.shortuser,
+            shorterro:state.shortMessage.shorterro
         }
     },
     (dispatch) => ({
-        login: () => dispatch(userAction.login()),
+        login: (a,b) => dispatch(userAction.login(a,b)),
+        shortlogin:(a,b) => dispatch(shortAction.shortlogin(a,b)),
+        SmsCodelogin:(a) => dispatch(shortAction.SmsCodelogin(a)),
+        forgetusername:() => dispatch(shortAction.forgetusername()),
+        nameSuccess: ()=> dispatch(shortAction.nameSuccess())
     })
 )(loginPage)
 

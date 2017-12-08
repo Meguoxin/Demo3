@@ -14,7 +14,7 @@ import {
 import loginStyle from '../../style/login';
 import common from '../../style/common';
 import { connect } from 'react-redux';
-import *as loginAction from '../../../redux/actions/user';
+import *as loginAction from '../../../redux/actions/user/user';
 import { NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -37,7 +37,7 @@ class reset extends Component {
             username: "",
             userpwd:"",
             bgColor:{backgroundColor:"#CCCCCC"},
-            syspwd:""
+            syspwd:true
         };
         this.computedTabColor = this.computedTabColor.bind(this);
         this.computedcolor = this.computedcolor.bind(this);
@@ -78,19 +78,21 @@ class reset extends Component {
     }
     //ComponentUpdate生命周期方法
     logout() {
-        if((this.state.username===this.state.userpwd)&&(this.state.username&&this.state.userpwd)&&(this.state.username.length>6&&this.state.userpwd.length>6)){
-            return ()=> this.props.navigation.navigate("Login")
-        } else{
+        if((this.state.username===this.state.userpwd)&&(this.state.username&&this.state.userpwd)){
+            this.setState({syspwd: true})
+            return this.props.navigation.navigate("Login")
+        }
+        else{
             this.setState({syspwd: false})
             return;
         }
-
     }
     render(){
         const { login,status} = this.props;
-        const { time,verification,tabColor } = this.state;
+        const { time,verification,tabColor,syspwd } = this.state;
         var text = tabColor ?{color:'#CCCCCC'} : {color:'#FF7400'};
         var text1 = verification ?"获取验证码": `重新发送(${time})`;
+        var text2 = syspwd ?"": "密码不一致，请重新输入";
         return(
             <View style={[common.wrapper, loginStyle.loginWrap]}>
                 <View style={loginStyle.loginMain1}>
@@ -102,6 +104,7 @@ class reset extends Component {
                                     placeholder='请输入6-12位新密码'
                                     style={[loginStyle.loginInput,{padding:0}]}
                                     autoFocus={true}
+                                    secureTextEntry={true}
                                     clearButtonMode="always"
                                     onChangeText={(text) => {
                                         this.setState({username: text});
@@ -113,7 +116,7 @@ class reset extends Component {
                                 <TextInput
                                     ref="login_psw"
                                     style={[loginStyle.loginInput,{padding:0}]}
-                                    secureTextEntry={false}
+                                    secureTextEntry={true}
                                     clearButtonMode="always"
                                     placeholder='再次输入新密码'
                                     underlineColorAndroid={'transparent'}
@@ -130,11 +133,14 @@ class reset extends Component {
                             </View>
                         </View>
                     </View>
+                    <View style={loginStyle.feedback}>
+                        <Text style={loginStyle.errorfont}>{text2}</Text>
+                    </View>
                     <View style={loginStyle.btn}>
                         <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
-                        <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FFAA00'
+                        <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FF9800'
                                             onPress={
-                                                    this.logout()
+                                                    this.logout
                                             }
 
                         >
@@ -162,7 +168,4 @@ export default connect ((state) => {
             user: state.user.user,
         }
     },
-    (dispatch) => ({
-        loginOut: () => dispatch(loginAction.loginOut()),
-    })
 )(reset)

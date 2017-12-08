@@ -29,14 +29,20 @@ export default class regFrom extends Component {
             secends: 60,
             verification:true,
             verificationcolor:{backgroundColor:"#FFAA00"},
-
         };
         this.handleLogin = this.handleLogin.bind(this);
     }
     actiontime(){
-        if(this.state.verification){
+        if(this.state.verification&&this.state.username.length>0){
             // 开启计时器
-            this.startInterval();
+            this.props.SmsCodelogin(this.state.username);
+            if(this.props.smsCode===true){
+                this.startInterval();
+            }
+            this.props.nameSuccess();
+        }
+        else if(this.state.username.length === 0){
+           this.props.forgetusername();
         }
     }
     startInterval(){
@@ -92,13 +98,14 @@ export default class regFrom extends Component {
             );
             return;
         }
-        this.props.login()
+        this.props.shortlogin(this.state.username,this.state.userpwd)
     }
     render() {
-        const { login,status} = this.props;
+        const { shortstatus,syspwd,shorterro} = this.props;
         const { time,verification,tabColor } = this.state;
         var text = this.state.tabColor ?{color:'#CCCCCC'} : {color:'#FF7400'};
         var text1 = verification ?"获取验证码": `重新发送(${time})`;
+        // var text2 = syspwd ?"": "两次密码输入不一致";
         return(
             <View style={loginStyle.loginMain}>
                 <View style={loginStyle.formStyle}>
@@ -138,11 +145,14 @@ export default class regFrom extends Component {
                         </View>
                     </View>
                 </View>
+                <View style={loginStyle.feedback}>
+                    <Text style={loginStyle.errorfont}>{shorterro}</Text>
+                </View>
                 <View style={loginStyle.btn}>
                     <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
-                    <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FFAA00'
+                    <TouchableHighlight style={[loginStyle.btnWrap3,this.computedcolor()]}  underlayColor='#FF9800'
                                         onPress={()=>{this.handleLogin()}}>
-                        <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]}>{status}</Text>
+                        <Text style={[loginStyle.loginBtn1,this.computedzidcolor()]}>{shortstatus}</Text>
                     </TouchableHighlight>
                     </LinearGradient>
                 </View>

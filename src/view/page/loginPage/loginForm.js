@@ -69,11 +69,13 @@ export default class LoginForm extends Component {
             );
             return;
         }
-        this.props.login()
+        this.props.login(this.state.username,this.state.userpwd)
     }
     render() {
-        const { login,status} = this.props;
+        const { login,status,erro} = this.props;
+
         var text = this.state.eyes ?require('../../../resource/icons/眼睛.png') : require('../../../resource/icons/闭眼.png');
+        // var text2 = syspwd ?"": "两次密码输入不一致";
         return (
             <View style={loginStyle.loginMain}>
                 <View style={loginStyle.formStyle}>
@@ -116,11 +118,14 @@ export default class LoginForm extends Component {
                         </View>
                     </View>
                 </View>
+                <View style={loginStyle.feedback}>
+                    <Text style={loginStyle.errorfont}>{erro}</Text>
+                </View>
                 <View style={loginStyle.btn}>
                     <LinearGradient colors={[ '#FFAA00','#FF9800']} style={[loginStyle.btnWrap]}>
                     <TouchableHighlight
                         style={[loginStyle.btnWrap3,this.computedcolor()]}
-                        underlayColor='#FFAA00'
+                        underlayColor='#FF9800'
                                         onPress={()=>{
                                             this.handleLogin()
                                         }}>

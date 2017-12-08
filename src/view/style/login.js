@@ -17,12 +17,14 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginVertical: 5,
+        marginTop:30
     },
     loginMain1: {
         flex:1,
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginVertical: 25,
+        marginTop:80
     },
     loginMain2: {
         flex:1,
@@ -45,10 +47,13 @@ const styles = StyleSheet.create({
     formStyle: {
         alignSelf: 'stretch',
         backgroundColor:'#FFFFFF',
-        height: 130,
-        marginTop:40
+        height: 110,
     },
-
+    formStyle1: {
+        alignSelf: 'stretch',
+        backgroundColor:'#FFFFFF',
+        height: 100,
+    },
     formInputWarp: {
         flex: 1,
 
@@ -101,7 +106,7 @@ const styles = StyleSheet.create({
     btnWrap:{
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 17,
+        marginTop: 16,
         height: 38,
         width: 295,
         borderRadius: 100,
@@ -149,6 +154,12 @@ const styles = StyleSheet.create({
         height:11,
         width:22,
         right: 0,
+    },
+    feedback:{
+        alignSelf:'flex-start',
+        flexDirection:'row',
+        marginTop:5,
+        alignItems: 'center',
     },
    errorfont:{
        alignSelf:'flex-start',
