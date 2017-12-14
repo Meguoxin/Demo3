@@ -1,15 +1,13 @@
-'use strict';
-
 import * as TYPES from './actionTypes';
 
-export function logIn(){
+export function logIn() {
     return {
-        'type': TYPES.LOGGED_IN
-    }
+        type: TYPES.LOGGED_IN
+    };
 }
 
-export function logOut(){
+export function logOut() {
     return {
-        'type': TYPES.LOGGED_OUT
-    }
+        type: TYPES.LOGGED_OUT
+    };
 }

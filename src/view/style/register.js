@@ -1,25 +1,18 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    loginWrap: {
+    registerWrap: {
         backgroundColor: '#FFFFFF',
         alignItems: 'center'
     },
-    loginMain: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginVertical: 5,
-        marginTop: 30
-    },
-    loginMain1: {
+    registerMain: {
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginVertical: 25,
         marginTop: 80
     },
-    loginMain2: {
+    registerMain2: {
         flex: 1,
         justifyContent: 'flex-start',
         marginVertical: 25
@@ -29,28 +22,22 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center'
     },
-    loginMode: {
+    registerMode: {
         flex: 0,
         alignItems: 'center',
         justifyContent: 'center',
         width: 295,
         height: 35
     },
-
-    formStyle: {
-        alignSelf: 'stretch',
-        backgroundColor: '#FFFFFF',
-        height: 110
-    },
-    formStyle1: {
+    registerformStyle: {
         alignSelf: 'stretch',
         backgroundColor: '#FFFFFF',
         height: 100
     },
-    formInputWarp: {
+    registerformInputWarp: {
         flex: 1
     },
-    linearGradient: {
+    registerlinearGradient: {
         justifyContent: 'center',
         alignItems: 'center',
         width: 200,
@@ -60,23 +47,23 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
 
-    formInput: {
+    registerformInput: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         position: 'relative'
     },
-    verification: {
+    registerverification: {
         right: 0,
         position: 'absolute'
     },
-    image: {
+    registerimage: {
         position: 'absolute',
         height: 11,
         width: 16,
         right: 5
     },
-    loginInput: {
+    registerInput: {
         height: 40,
         width: 295,
         alignSelf: 'center',
@@ -85,16 +72,16 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.4
     },
 
-    formInputSplit: {
+    registerformInputSplit: {
         borderBottomWidth: 1,
         borderBottomColor: '#FFFFFF'
     },
 
-    btn: {
+    registerbtn: {
         flexDirection: 'row'
     },
 
-    btnWrap: {
+    registerbtnWrap: {
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 16,
@@ -102,14 +89,14 @@ const styles = StyleSheet.create({
         width: 295,
         borderRadius: 100,
     },
-    btnWrap3: {
+    registerbtnWrap3: {
         alignItems: 'center',
         justifyContent: 'center',
         height: 38,
         width: 295,
         borderRadius: 100
     },
-    btnWrap1: {
+    registerbtnWrap1: {
         marginTop: 35,
         marginLeft: 30,
         marginRight: 30,
@@ -117,38 +104,21 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         paddingVertical: 3
     },
-    btnWrap2: {
+    registerbtnWrap2: {
         alignItems: 'center',
         justifyContent: 'center'
     },
 
-    loginBtn1: {
+    registerBtn: {
         alignItems: 'center',
         fontSize: 16,
         color: '#666666'
     },
-    loginBtn2: {
-        alignItems: 'center',
-        fontSize: 16,
-        color: '#666666'
-    },
-    loginforget: {
+    registerforget: {
         alignItems: 'center',
         fontSize: 14,
-        color: '#333333',
+        color: '#CCCCCC',
         marginTop: 17
-    },
-    forget: {
-        alignItems: 'center',
-        fontSize: 14,
-        color: '#9B9B9B',
-        marginTop: 17
-    },
-    eyes: {
-        position: 'absolute',
-        height: 11,
-        width: 22,
-        right: 0
     },
     feedback: {
         alignSelf: 'flex-start',

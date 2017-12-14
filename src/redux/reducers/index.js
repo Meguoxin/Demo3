@@ -1,5 +1,3 @@
-'use strict';
-
 import { combineReducers } from 'redux';
 import counter from './counter';
 import user from './user';
@@ -8,11 +6,11 @@ import forget from './forget';
 import shortMessage from './shortMessage';
 
 const rootReducer = combineReducers({
-    counter: counter,
-    user : user,
-    register: register,
-    forget:forget,
-    shortMessage:shortMessage,
+    counter,
+    user,
+    register,
+    forget,
+    shortMessage
 });
 
 export default rootReducer;
