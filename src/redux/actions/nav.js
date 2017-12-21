@@ -1,8 +1,8 @@
-import * as TYPES from './actionTypes';
+import * as TYPES from '../actions/user/loginTypes';
 
 export function logIn() {
     return {
-        type: TYPES.LOGGED_IN
+        type: TYPES.LOGIN_IN_DONE
     };
 }
 

@@ -143,7 +143,7 @@ export default class LoginForm extends Component {
                     <TouchableOpacity
                         style={loginStyle.btnWrap2}
                         onPress={() =>
-                            this.props.navigation.navigate('Forgetpw')
+                            this.props.navigation.navigate('registerpwd')
                         }
                     >
                         <Text style={loginStyle.loginforget}>忘了密码？</Text>

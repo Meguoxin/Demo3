@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     registerBtn: {
         alignItems: 'center',
         fontSize: 16,
-        color: '#666666'
+        color: '#999999'
     },
     registerforget: {
         alignItems: 'center',

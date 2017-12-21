@@ -4,7 +4,6 @@ import {
     Text,
     View,
     FlatList,
-    TouchableHighlight,
     TouchableOpacity,
     Platform
 } from 'react-native';
@@ -85,6 +84,6 @@ export default connect(
     }),
     dispatch => ({
         loginOut: () => dispatch(loginAction.loginOut()),
-        recite: () => dispatch(loginAction.recite())
+        recite: a => dispatch(loginAction.recite(a))
     })
 )(recite);

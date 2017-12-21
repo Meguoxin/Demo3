@@ -17,10 +17,10 @@ export function login() {
             })
             .catch(e => {
                 dispatch(loginError(false));
-    });
+            });
     };
 }
-export function recite() {
+export function recite( user ) {
     console.log('获取验证码方法');
     return dispatch => {
         console.log('doing');
@@ -28,10 +28,10 @@ export function recite() {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-                'WxApiToken': '99a0e025-6a80-4c36-8973-34fed23e8ac7'
+                WxApiToken: user.WxApiToken
             },
             body: JSON.stringify({
-                UserID: 'N10194985',
+                UserID: user.UserID,
                 WordBookID: '233908',
                 UnitIdx: '15'
             })

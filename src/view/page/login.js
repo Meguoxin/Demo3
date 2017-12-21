@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-
-import {
-    Text,
-    View,
-    TouchableOpacity,
-} from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import PropTypes from 'prop-types';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import common from '../style/common';
 import loginStyle from '../style/login';
@@ -13,11 +8,6 @@ import * as userAction from '../../redux/actions/user/user';
 import * as shortAction from '../../redux/actions/shortMessage/shortMessage';
 import LoginForm from './loginPage/loginForm';
 import RegFrom from './loginPage/shortMessageFrom';
-
-const resetAction = NavigationActions.reset({
-    index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'Main' })]
-});
 
 class loginPage extends Component {
     constructor(props) {
@@ -35,7 +25,9 @@ class loginPage extends Component {
                 style={{ flexDirection: 'row' }}
                 onPress={() => navigation.navigate('Main')}
             >
-                <Text style={{ color: 'black', marginRight: 10, fontSize: 16 }}>
+                <Text
+                    style={{ color: '#FF7400', marginRight: 10, fontSize: 16 }}
+                >
                     注册
                 </Text>
             </TouchableOpacity>
@@ -54,38 +46,10 @@ class loginPage extends Component {
             ? 'rgb(255, 152, 0)'
             : 'transparent';
     }
-    shouldComponentUpdate(nextProps) {
-        // 登录完成,切成功登录
-        if (nextProps.status === '成功' && nextProps.isSuccess) {
-            this.props.navigation.dispatch(resetAction);
-            return false;
-        } else if (
-            nextProps.shortstatus === '成功' &&
-            nextProps.shortisSuccess
-        ) {
-            this.props.navigation.dispatch(resetAction);
-        }
-        return true;
-    }
     onChangeTab(tab) {
         this.setState({ tabState: tab });
     }
     render() {
-        const {
-            login,
-            status,
-            user,
-            erro,
-            shortlogin,
-            shortstatus,
-            shortisSuccess,
-            shortuser,
-            shorterro,
-            SmsCodelogin,
-            forgetusername,
-            nameSuccess,
-            smsCode
-        } = this.props;
         return (
             <View style={[common.wrapper, loginStyle.loginWrap]}>
                 <View style={loginStyle.navigation}>
@@ -136,32 +100,31 @@ class loginPage extends Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                {(() =>
-                {
+                {(() => {
                     switch (this.state.tabState) {
                         case 'login':
                             return (
                                 <LoginForm
-                                    login={login}
-                                    status={status}
+                                    login={this.props.login}
+                                    status={this.props.status}
                                     navigation={this.props.navigation}
-                                    data={user}
-                                    erro={erro}
+                                    data={this.props.user}
+                                    erro={this.props.erro}
                                 />
                             );
                         case 'reg':
                             return (
                                 <RegFrom
-                                    shortlogin={shortlogin}
-                                    shortstatus={shortstatus}
+                                    shortlogin={this.props.shortlogin}
+                                    shortstatus={this.props.shortstatus}
                                     navigation={this.props.navigation}
-                                    shortisSuccess={shortisSuccess}
-                                    shortuser={shortuser}
-                                    shorterro={shorterro}
-                                    SmsCodelogin={SmsCodelogin}
-                                    forgetusername={forgetusername}
-                                    nameSuccess={nameSuccess}
-                                    smsCode={smsCode}
+                                    shortisSuccess={this.props.shortisSuccess}
+                                    shortuser={this.props.shortuser}
+                                    shorterro={this.props.shorterro}
+                                    SmsCodelogin={this.props.SmsCodelogin}
+                                    forgetusername={this.props.forgetusername}
+                                    nameSuccess={this.props.nameSuccess}
+                                    smsCode={this.props.smsCode}
                                 />
                             );
                     }
@@ -170,7 +133,19 @@ class loginPage extends Component {
         );
     }
 }
-//
+loginPage.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    // isLoggedIn: PropTypes.bool,
+    // user: PropTypes.object,
+    // status: PropTypes.string,
+};
+
+loginPage.defaultProps = {
+    // isLoggedIn: false,
+    // user: {},
+    // status: null,
+};
+
 export default connect(
     state => ({
         // key为组建的props属性 Value为组建的State

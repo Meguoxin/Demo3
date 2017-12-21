@@ -17,7 +17,6 @@ export default (user = (state = initialState, action = {}) => {
                 isSuccess: false,
                 user: null
             };
-            break;
         case types.REGISTER_IN_DONE:
             return {
                 ...state,
@@ -25,15 +24,13 @@ export default (user = (state = initialState, action = {}) => {
                 isSuccess: true,
                 user: action.user
             };
-            break;
         case types.REGISTER_IN_ERROR:
             return {
                 ...state,
                 status: '注册出错',
-                isSuccess: true,
+                isSuccess: false,
                 user: null
             };
-            break;
         case types.REGISTER_IN_REGERROR:
             return {
                 ...state,
@@ -41,7 +38,6 @@ export default (user = (state = initialState, action = {}) => {
                 isSuccess: false,
                 user: null
             };
-            break;
         case types.REGISTER_IN_OUT:
             return {
                 ...state,
@@ -49,39 +45,34 @@ export default (user = (state = initialState, action = {}) => {
                 isSuccess: false,
                 user: null
             };
-            break;
         case types.REGISTER_IN_SMSCODE_SUCCESS:
             return {
                 ...state,
                 regerro: '',
                 getShort: true
             };
-            break;
         case types.REGISTER_IN_SMSCODE_FAIL:
             return {
                 ...state,
-                regerro: '获取验证码失败',
+                status: '失败',
+                regerro: '手机号或验证码错误',
                 getShort: false
             };
-            break;
         case types.REGISTER_IN_PHONESETNULL:
             return {
                 ...state,
                 regerro: '请输入11位手机号码'
             };
-            break;
         case types.REGISTER_IN_REPEAT:
             return {
                 ...state,
                 regerro: '该手机号已注，请前去登录'
             };
-            break;
         case types.REGISTER_IN_PHONESETFIX:
             return {
                 ...state,
                 regerro: ''
             };
-            break;
         default:
             return state;
     }

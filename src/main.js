@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, addNavigationHelpers } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
@@ -12,7 +12,7 @@ import registerpwdPage from './view/page/register/registerpwd';
 import reciteItemPage from './view/page/recitePage/reciteItem';
 import recitePage from './view/page/recitePage/recite';
 
-const App = StackNavigator(
+export const AppNavigation = StackNavigator(
     {
         Login: {
             screen: LoginPage
@@ -49,15 +49,19 @@ class CounterApp extends Component {
         super(props);
     }
     render() {
-        return <App />;
+        console.log(this);
+        return (
+            <AppNavigation
+                navigation={addNavigationHelpers({
+                    dispatch: this.props.dispatch,
+                    state: this.props.nav
+                })}
+            />
+        );
     }
 }
-export default connect(
-    state => ({
-        // key为组建的props属性 Value为组建的State
-        state: state.user
-    }),
-    dispatch => ({
-        actions: bindActionCreators(counterActions, dispatch)
-    })
-)(CounterApp);
+export default connect(state => ({
+    // key为组建的props属性 Value为组建的State
+    state: state.user,
+    nav: state.nav
+}))(CounterApp);

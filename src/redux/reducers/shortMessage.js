@@ -1,7 +1,7 @@
 import * as types from '../actions/shortMessage/shortMessageTypes';
 
 const initialState = {
-    shortstatus: '登录',
+    shortstatus: 'aaa',
     shortisSuccess: false,
     shortuser: null,
     shorterro: '',
@@ -40,7 +40,7 @@ export default (user = (state = initialState, action = {}) => {
         case types.SHORT_IN_USERPWDERROR:
             return {
                 ...state,
-                shortstatus: '登录',
+                shortstatus: 'bbb',
                 shortisSuccess: false,
                 shortuser: null,
                 shorterro: '验证码格式不正确'
@@ -49,7 +49,7 @@ export default (user = (state = initialState, action = {}) => {
         case types.SHORT_IN_OUT:
             return {
                 ...state,
-                shortstatus: '登录',
+                shortstatus: 'ccc',
                 shortisSuccess: false,
                 shortuser: null,
                 shorterro: ''

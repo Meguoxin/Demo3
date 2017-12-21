@@ -12,7 +12,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
 import loginStyle from '../../style/login';
 import common from '../../style/common';
-import * as loginAction from '../../../redux/actions/forgetpwd/forgetpw';
+import * as forgetAction from '../../../redux/actions/forgetpwd/forgetpw';
 
 class Forgetpw extends Component {
     static navigationOptions = () => ({
@@ -101,9 +101,7 @@ class Forgetpw extends Component {
         }
         if (this.state.username.length > 10) {
             this.props.loginOut();
-            this.props.recite().then(json => {
-            });
-            this.props.navigation.navigate('recite');
+            this.props.recite(this.props.user);
         } else {
             Alert.alert('提示', '手机号书写错误', [
                 {
@@ -228,10 +226,10 @@ export default connect(
     state => ({
         status: state.forget.status,
         isSuccess: state.forget.isSuccess,
-        user: state.forget.user
+        user: state.user.user
     }),
     dispatch => ({
-        loginOut: () => dispatch(loginAction.loginOut()),
-        recite: () => dispatch(loginAction.recite())
+        loginOut: () => dispatch(forgetAction.loginOut()),
+        recite: a => dispatch(forgetAction.recite(a))
     })
 )(Forgetpw);

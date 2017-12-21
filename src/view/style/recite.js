@@ -14,6 +14,12 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#FFFFFF'
     },
+    reciteMain: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        paddingRight: 26
+    },
     reciteall: {
         alignItems: 'center'
     },
@@ -22,7 +28,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#FFFFFF',
-        paddingBottom: 50
+        paddingBottom: 55
     },
     reciteButtonView: {
         flexDirection: 'row',
@@ -35,11 +41,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         position: 'absolute',
         bottom: 0,
-        shadowColor: '#e5e5e5',
-        shadowRadius: 5,
-        shadowOffset: { h: -10, w: 0 },
         alignItems: 'center',
         justifyContent: 'center',
+        shadowOffset: { h: -10, w: 0 },
+        shadowColor: '#e5e5e5',
+        shadowRadius: 5,
         shadowOpacity: 1
     },
     ANDROIDbuttonView: {
@@ -85,12 +91,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         color: '#ff7400'
-    },
-    reciteMain: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        paddingRight: 26
     },
     reciteitemSize: {
         justifyContent: 'flex-start',

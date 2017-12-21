@@ -4,13 +4,15 @@ import user from './user';
 import register from './register';
 import forget from './forget';
 import shortMessage from './shortMessage';
+import navigationReducer from './nav';
 
 const rootReducer = combineReducers({
     counter,
     user,
     register,
     forget,
-    shortMessage
+    shortMessage,
+    nav: navigationReducer
 });
 
 export default rootReducer;

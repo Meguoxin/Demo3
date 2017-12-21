@@ -24,7 +24,7 @@ class Main extends Component {
                 style={{ flexDirection: 'row' }}
                 onPress={() => navigation.navigate('Login')}
             >
-                <Text style={{ color: 'black', marginRight: 10, fontSize: 16 }}>
+                <Text style={{ color: '#FF7400', marginRight: 10, fontSize: 16 }}>
                     登录
                 </Text>
             </TouchableOpacity>
@@ -48,13 +48,6 @@ class Main extends Component {
         this.logout = this.logout.bind(this);
         this.startInterval = this.startInterval.bind(this);
         this.actiontime = this.actiontime.bind(this);
-    }
-    shouldComponentUpdate(nextProps) {
-        // 登录完成,切成功登录
-        if (nextProps.status === '成功' && nextProps.isSuccess) {
-            return false;
-        }
-        return true;
     }
     componentWillUnmount() {
         this.timer && clearInterval(this.timer);
@@ -121,7 +114,6 @@ class Main extends Component {
             this.computedTabColor(false);
         }
     }
-    // ComponentUpdate生命周期方法
     logout() {
         if (!this.state.username || !this.state.userpwd) {
             Alert.alert(
@@ -137,7 +129,7 @@ class Main extends Component {
         }
         if (this.state.username.length > 10) {
             this.props.login(this.state.username, this.state.userpwd);
-            if (this.state.isSuccess === true) {
+            if (this.props.isSuccess === true) {
                 this.props.navigation.navigate('registerpwd');
             }
         } else {

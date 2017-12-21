@@ -161,7 +161,7 @@ class reset extends Component {
                     </View>
                     <View style={loginStyle.btn}>
                         <TouchableOpacity style={loginStyle.btnWrap2}>
-                            <Text style={loginStyle.loginforget}>
+                            <Text style={loginStyle.forget}>
                                 出现问题？请前去
                                 <Text style={{ color: '#2A2A2A' }}> 反馈</Text>
                             </Text>
